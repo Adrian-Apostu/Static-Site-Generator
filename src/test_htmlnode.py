@@ -60,7 +60,7 @@ class TestHtmlNode(unittest.TestCase):
 
     def test_to_html_with_no_children(self):
         parent_node = ParentNode("div", [])
-        self.assertRaises(ValueError, parent_node.to_html)
+        self.assertEqual(parent_node.to_html(), "<div></div>")
 
     def test_to_html_with_no_tag(self):
         child_node = LeafNode(None, "child")

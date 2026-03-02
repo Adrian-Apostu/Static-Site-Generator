@@ -10,7 +10,7 @@ class HtmlNode:
 
     def props_to_html(self):
         result = []
-        if self.props is None or self.props is {}:
+        if not self.props:
             return ""
         else:
             for key, value in self.props.items():
@@ -41,9 +41,9 @@ class ParentNode(HtmlNode):
     def to_html(self):
         if self.tag is None:
             raise ValueError("All parent nodes must have a tag")
-        if self.children is None or len(self.children) == 0:
+        if self.children is None:
             raise ValueError("All parent nodes must have children")
         result = f"<{self.tag}{self.props_to_html()}>"
-        while len(self.children) > 0:
-            result += self.children.pop(0).to_html()
+        for child in self.children:
+            result += child.to_html()
         return result + f"</{self.tag}>"
