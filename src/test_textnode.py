@@ -44,8 +44,8 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, "")
         self.assertEqual(
             html_node.props,
-            {"src": "https://www.boot.dev/img.png", "alt": "This is an image"},
-    )
+            {"src": "https://www.boot.dev/img.png", "alt": "This is an image"},)
+    
 
 
 if __name__ == "__main__":
