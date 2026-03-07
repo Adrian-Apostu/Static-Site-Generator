@@ -1,3 +1,5 @@
+from constants import VOID_ELEMENTS
+
 class HtmlNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
@@ -30,7 +32,10 @@ class LeafNode(HtmlNode):
             raise ValueError("All leaf nodes must have a value")
         if self.tag is None:
             return self.value
+        if self.tag in VOID_ELEMENTS:
+            return f"<{self.tag}{self.props_to_html()} />"
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+
     def __repr__(self):
         return f"{self.tag}, {self.value}, {self.props}"
 

@@ -45,6 +45,49 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(
             html_node.props,
             {"src": "https://www.boot.dev/img.png", "alt": "This is an image"},)
+
+    def test_text_node_to_html_text(self):
+        node = TextNode("hello", TextType.TEXT)
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, None)
+        self.assertEqual(html.value, "hello")
+
+    def test_text_node_to_html_bold(self):
+        node = TextNode("bold text", TextType.BOLD)
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, "b")
+        self.assertEqual(html.value, "bold text")
+
+    def test_text_node_to_html_italic(self):
+        node = TextNode("italic text", TextType.ITALIC)
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, "i")
+        self.assertEqual(html.value, "italic text")
+
+    def test_text_node_to_html_code(self):
+        node = TextNode("print('hi')", TextType.CODE)
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, "code")
+        self.assertEqual(html.value, "print('hi')")
+
+    def test_text_node_to_html_link(self):
+        node = TextNode("click me", TextType.LINK, "https://boot.dev")
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, "a")
+        self.assertEqual(html.value, "click me")
+        self.assertEqual(html.props, {"href": "https://boot.dev"})
+
+    def test_text_node_to_html_image(self):
+        node = TextNode("alt text", TextType.IMAGE, "https://example.com/img.png")
+        html = text_node_to_html_node(node)
+        self.assertEqual(html.tag, "img")
+        self.assertEqual(html.value, "")
+        self.assertEqual(html.props, {"src": "https://example.com/img.png", "alt": "alt text"})
+
+    def test_text_node_to_html_invalid_type(self):
+        node = TextNode("bad", "fake_type")
+        with self.assertRaises(ValueError):
+            text_node_to_html_node(node)
     
 
 
