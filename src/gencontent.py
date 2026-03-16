@@ -19,6 +19,7 @@ def generate_page(from_path, template_path, dest_path):
     title = extract_title(markdown_content)
     template_content = template_content.replace("{{ Title }}", title).replace("{{ Content }}", html_content)
     dest_dir_path = os.path.dirname(dest_path)
-    os.makedirs(dest_dir_path, exist_ok=True)
+    if dest_dir_path != "":
+        os.makedirs(dest_dir_path, exist_ok=True)
     with open(dest_path, "w") as file:
         file.write(template_content)
