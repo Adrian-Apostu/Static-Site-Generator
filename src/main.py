@@ -1,13 +1,13 @@
 import os
 import shutil
-from gencontent import generate_page
+from gencontent import generate_pages_recursive
 
 def copy_static(src, dst):
     if os.path.exists(dst):
         shutil.rmtree(dst)
     os.mkdir(dst)
     for item in os.listdir(src):
-        current_path=os.path.join(src, item)
+        current_path = os.path.join(src, item)
         if os.path.isfile(current_path):
             shutil.copy(current_path, dst)
         else:
@@ -16,7 +16,7 @@ def copy_static(src, dst):
 
 def main():
     copy_static("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 if __name__ == "__main__":
     main()
